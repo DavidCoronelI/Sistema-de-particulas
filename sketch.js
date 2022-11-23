@@ -1,14 +1,15 @@
-let nPelotas = 200;
+let nParticulas = 200;
 let pelota = [];
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  for (let i = 0; i < nPelotas; i++) {
+  for (let i = 0; i < nParticulas; i++) {
     pelota[i] = new randomWalker(i);
   }
 }
 
 function draw() {
-  for (let i = 0; i < nPelotas; i++) {
+  for (let i = 0; i < nParticulas; i++) {
     pelota[i].update();
     pelota[i].display();
   }
@@ -18,7 +19,7 @@ function draw() {
 // --------------- CLASSES --------------
 // --------------------------------------
 
-//----------Ramdom Walker----------------
+//--------------Ramdom Walker------------
 
 class randomWalker{
   constructor(_tag) { //Crea parametors para el objeto
@@ -32,7 +33,8 @@ class randomWalker{
 
     this.tag = _tag;
     
-    this.pos  = createVector(width/2, height/2);
+    this.pos  = createVector(random(0.45,0.55)*width, random(0.45,0.55)*height);
+    this.pos2  = createVector(random(0.45,0.55)*width, random(0.45,0.55)*height);
     this.speed = createVector(random(-2,2), random(-2,2));
     this.diametro = random (10,50);
     print('hola soy pelota ' + this.tag);
@@ -41,13 +43,15 @@ class randomWalker{
     
     this.speed.rotate(map(noise(this.t + this.noiseShift), 0, 1, -0.5, 0.5));
     this.pos.add(this.speed);
+    this.pos2.add(this.speed);
     this.t += this.tSpeed;
   }
   display() { //Dibuja el objeto
     //noStroke();
-    stroke('rgba(0, 0, 0, 0.2)');
+    stroke(this.Red, this.Gren, this.Blue);
     strokeWeight(3);
-    fill (this.Red, this.Gren, this.Blue);
-    ellipse(this.pos.x, this.pos.y, this.diametro, this.diametro);
+    //fill (this.Red, this.Gren, this.Blue);
+    //ellipse(this.pos.x, this.pos.y, this.diametro, this.diametro);
+    line(this.pos.x, this.pos.y, this.pos2.x, this.pos2.y);
   }
 }
