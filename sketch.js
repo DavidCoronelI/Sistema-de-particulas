@@ -1,4 +1,4 @@
-let nParticulas = 200;
+let nParticulas = 50 ;
 let pelota = [];
 
 function setup() {
@@ -22,26 +22,32 @@ function draw() {
 //--------------Ramdom Walker------------
 
 class randomWalker{
-  constructor(_tag) { //Crea parametors para el objeto
-    this. Red = random(150, 255);
-    this. Gren = random(0, 60);
-    this. Blue = random(20, 80);
-
-    this.t = 0;
+  constructor(_tag) { //Crea parametors para el elemento
+    //----Color----
+    this. Red = random(200, 255);
+    this. Gren = random(0, 50);
+    this. Blue = random(20, 50);
+    
+    //----Color----
+    this.t = 0.7;
     this.tSpeed = random(0.4);
     this.noiseShift = random(1000);
 
+    //----Nombre de cada elemento----
     this.tag = _tag;
-    
+
+    //----Posicion de elemento----
     this.pos  = createVector(random(0.45,0.55)*width, random(0.45,0.55)*height);
-    this.pos2  = createVector(random(0.45,0.55)*width, random(0.45,0.55)*height);
-    this.speed = createVector(random(-2,2), random(-2,2));
+    this.pos2  = createVector(random(0.48,0.52)*width, random(0.48,0.52)*height);
+    this.speed = createVector(random(-5,5), random(-5,5));
     this.diametro = random (10,50);
+
+    //----Consola----
     print('hola soy pelota ' + this.tag);
   }
   update() { //Modifica el objeto
     
-    this.speed.rotate(map(noise(this.t + this.noiseShift), 0, 1, -0.5, 0.5));
+    this.speed.rotate(map(noise(this.t + this.noiseShift), 0, 0.5, -0.5, 0.5));
     this.pos.add(this.speed);
     this.pos2.add(this.speed);
     this.t += this.tSpeed;
